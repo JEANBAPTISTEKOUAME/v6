@@ -1,0 +1,61 @@
+tooltips: {
+          callbacks: {
+            // Personnaliser le contenu des tooltips
+            label: (tooltipItem, data) => {
+              const index = tooltipItem.index;
+              const label = data.labels[index].name || "";
+              const commune = data.labels[index].commune;
+              const xValue = data.datasets[0].data[index].x;
+              const yValue = data.datasets[0].data[index].y;
+              const rValue = data.datasets[0].data[index].r;
+              // Vérifier si la plage d'années est une seule année
+                if (selectedYearRange.from === selectedYearRange.to) {
+                  return [
+                    `${label} (${commune})`,
+                    `Consommation totale: ${numberWithThousandsSeparator(
+                      xValue.toFixed(0)
+                    )} kW/h`,
+                    `Consommation par surface: ${yValue.toFixed(0)} kW/h/m²`,
+                    `Dépense par surface: ${rValue.toFixed(0)} €/m²`,
+                  ];
+                }
+                else {
+                  // Plage d'années
+                  return [
+                    `${label} (${commune})`,
+                    `Consommation moyenne: ${numberWithThousandsSeparator(
+                      xValue.toFixed(2)
+                    )} kW/h`,
+                    `Consommation par surface: ${yValue.toFixed(2)} kW/h/m²`,
+                    `Dépense par surface: ${rValue.toFixed(2)} €/m²`,
+                  ];
+                }
+              },
+                 
+            
+          },
+        },
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: "Consommation moyenne (kW/h)",
+            },
+          },
+          y: {
+            title: {
+              display: true,
+              text: "Consommation par surface (kW/h/m²)",
+            },
+          },
+        },
+      },
+    };
+
+
+              }
+            }
+          }
+        }
+      }
+    }

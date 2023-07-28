@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Observatoire de la Rénovation Énergétique</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/maplibre-gl@2.1.1/dist/maplibre-gl.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/nouislider@14.7.0/distribute/nouislider.min.css" />
+    <link rel="stylesheet" href="./alecnew.css" />
+  </head>
+  <body>
+    <header class="bg-primary text-white text-center p-3">
+      OBSERVATOIRE DE LA RÉNOVATION ÉNERGETIQUE DU PAYS DE RENNES
+    </header>
+    <div style="flex-grow: 1; display: flex">
+      <div class id="menu-gauche">
+        <label for="batiment">COMMUNE ADHERENTE </label><br />
+        <ul id="batiment" style="width: 100%">
+          <li>
+            <input type="checkbox" name="commune" value="commune1" /> indicateur
+            1
+          </li>
+          <li>
+            <input type="checkbox" name="commune" value="commune2" /> conso/hbt
+          </li>
+          <li>
+            <input type="checkbox" name="commune" value="commune3" /> indicateur
+            3
+          </li>
+          <!-- Ajoutez autant d'options que nécessaire -->
+        </ul>
+        <label for="espece">EPCI</label><br />
+        <select id="espece" style="width: 100%">
+          <option value="">Choisissez un epci</option>
+          <!-- Ajoutez vos options ici --></select
+        ><br />
+           <!-- Ajoutez autant d'options que nécessaire -->
+          </ul>
+          <label for="espece">COMMUNE</label><br />
+          <select id="espece" style="width: 100%">
+            <option value="">Choisissez une commune</option>
+            <!-- Ajoutez vos options ici --></select
+          ><br />
+          <!-- Ajoutez autant d'options que nécessaire -->
+        </ul>
+
+        <label for="batiment">TYPE DE BÂTIMENT</label><br />
+        <select id="batiment" style="width: 100%">
+          <option value="">Choisissez un type de bâtiment</option>
+        </select>
+
+        <label for="batiment">RENOVATION</label><br />
+        <select id="batiment" style="width: 100%">
+          <option value="">Rénovation globale</option>
+        </select>
+        <!-- Ajoutez vos options ici -->
+      </div>
+
+      <div id="carte"></div>
+
+      <div class id="menu-droit">
+        <h3>CHIFFRES CLES</h3>
+      </div>
+    </div>
+    <div id="footer">Contact</div>
+
+    <!-- lien externe intégré à l'application-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+    <script src="https://unpkg.com/maplibre-gl@2.1.1/dist/maplibre-gl.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/js/ion.rangeSlider.min.js"></script>
+    <script src="https://js.sentry-cdn.com/9c5feb5b248b49f79a585804c259febc.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nouislider@14.7.0/distribute/nouislider.min.js"></script>
+    <script src="./alecnew.js"></script>
+  </body>
+</html>

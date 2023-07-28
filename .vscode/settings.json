@@ -1,0 +1,5 @@
+{
+    "editor.fontFamily": "Menlo,Monaco, 'Courier New', monospace",
+    "prettier.bracketSameLine": true,
+    "editor.codeActionsOnSave": {}
+}

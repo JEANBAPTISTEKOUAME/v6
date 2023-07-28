@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="fr" >
+<head>
+  <meta charset="UTF-8">
+  <title>Observatoire de la rénovation énergétique</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<link rel='stylesheet' href='https://unpkg.com/maplibre-gl@2.1.1/dist/maplibre-gl.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css'>
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/nouislider@14.7.0/distribute/nouislider.min.css'><link rel="stylesheet" href="./stylebase.css">
+
+</head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<body>
+
+  <header>
+    <div id="bandeau">
+      <img src="./img/logo_alec_blanc_dimoui.png" alt="Logo" class=logoALEC>
+    </div>
+  </header>
+
+  <section class="light">
+    <a href="https://www.alec-rennes.org/">
+      <div class="circle long"></div>
+      </a>
+  </section>
+  
+
+  <!-- Le titre principal qui apparaît en haut de la page -->
+  <h50>OBSERVATOIRE DE LA RÉNOVATION ÉNERGETIQUE</h50>
+  <h51>DU PAYS DE RENNES</h51>
+  <h52>VERS LE SITE WEB <br>DE L'ALEC</h52>
+
+  <!-- Encadrement de la carte et de la légende -->
+  <div class="div1">
+    <!-- Affichage de la carte -->
+    <div id="carte"></div>
+    <!-- Bloc des bâtiments sur la gauche -->
+    <div class="sidebar">
+      <!-- En tête avec le titre -->
+      <div class="heading">
+        <h4> Bâtiments publics</h4>
+      </div>
+      <div class="select-container">
+        <!-- Liste pour afficher les bâtiments et leur commune -->
+        <select id="listings" class="listings"
+         <option> </option>
+        </select>
+        <div style="display: flex">
+          <!-- Bouton de désélection des bâtiments (tous sélectionnés par défaut, bug) -->
+          <button1 id="deselect-all">Désélection des bâtiments</button1>
+        </div>
+      </div>
+    </div>
+
+    <!-- Affichage de la légende permettant de faire des sélection -->
+    <div class id="legende">
+      <h1>Menu de sélection</h1>
+      <p>Ce menu permet de mettre à jour la carte, les chiffres clés et les graphiques en fonction des différents boutons de sélections mis à disposition ci-dessous.
+        <p />
+
+        <!-- Paramétrage du bouton de sélection des EPCI -->
+      <div>
+        <div class="button-container">
+           <button1 id="btn-choix5">EPCI</button1>
+          <label>
+            <!-- Une case à cocher qui sera cochée par défaut. Lorsque l'utilisateur cliquera dessus, 
+              la fonction switchlayer() sera appelée avec l'argument 'epci_name' ( à voir, supprimer plus tard)-->
+           <!-- <input type="checkbox" id="epci_nameCB" value="epci_name" onchange="switchlayer('epci_name')" checked />
+            <span style="margin-left: 5px;">Afficher/masquer</span> -->
+          </label> 
+        </div> 
+        <!-- Une div pour la liste déroulante qui ne sera pas affichée par défaut -->
+        <div id="liste-container5" style="display:none">
+          <!-- Une liste déroulante permettant de sélectionner plusieurs EPCI en même temps(à supprimer plus tard, je ne vois pas l'utilité) -->
+          <select id="liste-choix5" multiple>
+          </select>
+        </div>
+      </div>
+
+      <!-- Paramétrage du bouton de sélection des communes -->
+      <div>
+        <div class="button-container">
+          <button1 id="btn-choix">Communes</button1>
+          <label>
+            <!-- Une case à cocher qui sera cochée par défaut. 
+              Lorsque l'utilisateur cliquera dessus, la fonction switchlayer() sera appelée avec l'argument 'com_name' ( à voir, supprimer plus tard) -->
+            <input type="checkbox" id="com_nameCB" value="com_name" onchange="switchlayer('com_name')" checked />
+            <span style="margin-left: 5px;">Afficher/masquer</span>
+          </label>
+        </div>
+        <!-- Une div pour la liste déroulante qui ne sera pas affichée par défaut -->
+        <div id="liste-container" style="display:none">
+          <!-- Une liste déroulante permettant de sélectionner plusieurs communes en même temps -->
+          <select id="liste-choix" multiple>
+          </select>
+        </div>
+      </div>
+
+      <!-- Paramétrage du bouton de sélection du type de bâtiment -->
+      <div>
+        <div class="button-container">
+          <button1 id="btn-choix2">Type de bâtiment</button1>
+          <!-- Une div pour la liste déroulante qui ne sera pas affichée par défaut -->
+        </div>
+        <div id="liste-container2" style="display:none">
+          <!-- Une liste déroulante permettant de sélectionner plusieurs types de bâtiments en même temps -->
+          <select id="liste-choix2" multiple>
+          </select>
+        </div>
+      </div>
+
+      <!-- Paramétrage du bouton de sélection de l'état de rénovation -->
+      <div>
+        <div class="button-container">
+          <button1 id="btn-choix4">Rénovation</button1>
+          <!-- Une div pour la liste déroulante qui ne sera pas affichée par défaut -->
+        </div>
+        <div id="liste-container4" style="display:none">
+          <!-- Une liste déroulante permettant de sélectionner plusieurs types d'énergie en même temps -->
+          <select id="liste-choix4" multiple>
+          </select>
+        </div>
+        
+
+        <!-- Un bouton pour mettre à jour les graphiques après avoir effectué des sélections -->
+        <div class="button-container">
+          <button1 id="updateChartButton">Mise à jour</button1>
+        </div>
+      </div>
+
+      <!-- Un menu qui récapitule toutes les sélections en cours sur la page ( à voir, supprimer plus tard) -->
+      <div id="selections-container">
+        <h3>Sélection(s) en cours</h3>
+        <ul id="selections-com"></ul>
+        <ul id="selections-epci"></ul>
+        <ul id="selections-bat"></ul>
+        <ul id="selections-combat"></ul>
+        <ul id="selections-renov"></ul>
+        <div id="selections-liste">
+          <span id="selections-bati-label"></span>
+        </div>
+      </div>
+    </div>
+                                                                            
+    <!-- Une div pour le premier graphique -->
+    <div class id="graphique1">
+      <div id="agrandir">+</div>
+      <h1>Consommation et dépense d'énergie par année et par type d'énergie</h1>
+      <!-- Une div pour afficher le premier graphique -->
+      <div class="graphique">
+        <!-- Une balise canvas pour afficher le premier graphique -->
+        <canvas id="myChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Une div pour le deuxième graphique -->
+    <div class id="graphique2">
+      
+      <h1>Volume de consommation sur ratio surfacique</h1>
+      <p>L'axe X représente la consommation moyenne en kW/hᵉᶠ.</p>
+      <p>L'axe Y représente la consommation moyenne par surface en kW/hᵉᶠ/m².</p>
+      <p>La taille des bulles varie en fonction de la dépense moyenne par surface en €/m².</p>
+      <!-- Une div pour afficher le deuxième graphique -->
+      <div class="graphique">
+        <!-- Une balise canvas pour afficher le deuxième graphique -->
+        <canvas id="myChart2"></canvas>
+        <!-- Un input de type texte pour sélectionner les années -->
+        <input type="text" id="rangeSlider1" class="rangeSlider" value="" />
+      </div>
+      
+     <!---<div class="form-group">
+        <select id="yearSelect" multiple class="form-control">
+          <!-- Les options d'année seront générées dynamiquement 
+        </select>
+      </div>
+      --> 
+    </div> 
+
+    <!-- Une div pour le troisième graphique -->
+    <div class id="graphique3">
+      <div id="agrandir2">+</div>
+      <h1>Répartition de consommation <br>et de dépense par type d'énergie</h1>
+      <div style="display: flex; padding: 0px 40px">
+        <!-- Un bouton pour sélectionner le graphique de consommation (par défaut) -->
+        <button1 id="consommationBtn">Conso</button1>
+        <!-- Un bouton pour sélectionner le graphique de dépenses -->
+        <button1 id="depenseBtn">Dépense</button1>
+      </div>
+      <!-- Une div pour afficher le troisième graphique -->
+      <div class="graphique">
+        <!-- Une balise canvas pour afficher le troisième graphique -->
+        <canvas id="myChart3"></canvas>
+      </div>
+      <div class="rangeSlider-container">
+        <!-- Un input de type texte pour sélectionner les années -->
+        <input type="text" id="rangeSlider2" class="rangeSlider" value="" />
+      </div>
+    </div>
+
+    <!-- Une div pour les chiffres clés -->
+    <div id="chiffres">
+      <!-- Une div pour les consommations -->
+      <div id="conso">
+        <h1>Consommation totale des bâtiments</h1>
+        <!-- L'affichage des données de consommation -->
+        <div id="chiffresconso"></div>
+      </div>
+      <!-- Une div pour les dépenses -->
+      <div id="depenses">
+        <h1>Dépense totale des bâtiments</h1>
+        <!-- L'affichage des données de dépense -->
+        <div id="chiffresdep"></div>
+        <div class="rangeSlider-container">
+          <!-- Un input de type texte pour sélectionner les années -->
+          <input type="text" id="rangeSlider3" class="rangeSlider" value="dd" />
+        </div>
+      </div>
+    </div>
+
+          <!--pied de la page  -->
+    <footer>
+      <div class="bandeau2">
+        <h95>Nous trouver :</h95>
+        <h96>ALEC du Pays de Rennes<br>104 Bd Georges Clemenceau<br>35200 Rennes</h96>
+
+        <h97>Nous contacter :</h97>
+        <h98>Par téléphone : 02 99 352 350<br>Par Mail : <a href="contact(at)alec-rennes.org">contact@alec-rennes.org</a></h98>
+        <h99><a href="https://www.alec-rennes.org/mentions-legales-et-rgpd/">Mentions légales</a></h99>
+
+        <h100>Une collaboration entre :</h100>
+
+        <img src="./img/logo_alec_blanc_dimoui.png" alt="Logo" class=logoALEC2>
+
+        <img src="./img/LOGO_SIGAT.png" alt="Logo" class=logoSIGAT>
+
+        <a href="https://www.facebook.com/alecrennes/?locale=fr_FR"><img src="https://upload.wikimedia.org/wikipedia/commons/c/cd/Facebook_logo_%28square%29.png" alt="Logo" class="facebook"></a> 
+        
+    <a href="https://twitter.com/ALEC_Rennes"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Logo_of_Twitter.svg/langfr-1280px-Logo_of_Twitter.svg.png" alt="Logo" class="twitter"></a>    
+        
+  <a href="https://www.instagram.com/alec_rennes/?hl=fr​"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Logo" class="instagram"></a>
+        
+      </div>
+      
+    </footer>
+<!-- lien externe intégré à l'application-->
+  <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js'></script>
+<script src='https://unpkg.com/maplibre-gl@2.1.1/dist/maplibre-gl.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/js/ion.rangeSlider.min.js'></script>
+<script src='https://js.sentry-cdn.com/9c5feb5b248b49f79a585804c259febc.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/nouislider@14.7.0/distribute/nouislider.min.js'></script><script  src="./jsbase.js"></script>
+
+</body>
+</html>
